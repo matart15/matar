@@ -2,6 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "fix": "eslint --fix \"./**/*.{js,jsx}\"",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
@@ -9,8 +10,13 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "apollo-cache-inmemory": "^1.1.10",
+    "apollo-client": "^2.2.6",
+    "apollo-link-http": "^1.5.3",
     "expo": "^25.0.0",
+    "graphql-tag": "^2.8.0",
     "react": "16.2.0",
+    "react-apollo": "^2.0.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "react-navigation": "^1.0.0-beta.27"
   },

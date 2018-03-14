@@ -1,13 +1,33 @@
 import React from 'react'
 import { Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { TabNavigator, TabBarBottom } from 'react-navigation'
+import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
 
 import Colors from '../constants/Colors'
 
-import HomeScreen from '../screens/HomeScreen'
-import LinksScreen from '../screens/LinksScreen'
-import SettingsScreen from '../screens/SettingsScreen'
+import HomeScreen from '../containers/HomeScreen'
+import LinksScreen from '../containers/LinksScreen'
+import SettingsScreen from '../containers/SettingsScreen'
+
+import FeedPage from '../containers/FeedPage'
+import DraftsPage from '../containers/DraftsPage'
+import CreatePage from '../containers/CreatePage'
+import DetailPage from '../containers/DetailPage'
+
+const PostStack = TabNavigator({
+  FeedPage: {
+    screen: FeedPage
+  },
+  DraftsPage: {
+    screen: DraftsPage
+  },
+  CreatePage: {
+    screen: CreatePage
+  },
+  DetailPage: {
+    screen: DetailPage
+  }
+})
 
 export default TabNavigator(
   {
@@ -19,6 +39,9 @@ export default TabNavigator(
     },
     Settings: {
       screen: SettingsScreen
+    },
+    PostStack: {
+      screen: PostStack
     }
   },
   {

@@ -1,0 +1,15 @@
+{
+  "name": "controller",
+  "scripts": {
+		"stop": "docker stop $(docker ps -q)",
+    "start": "cd server; yarn start",
+    "exp-start": "cd expo; exp start",
+    "ios": "cd expo; exp ios",
+    "android": "cd expo; exp android",
+    "web": "cd web; yarn start",
+    "fix": "cd web; yarn fix; cd ../expo; yarn fix; cd ../server; yarn fix; ",
+    "playground": "cd server; prisma playground",
+    "dev": "npm-run-all --parallel start playground",
+    "prisma": "prisma"
+  }
+}

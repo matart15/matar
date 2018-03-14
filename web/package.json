@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "fix": "eslint --fix \"src/**/*.{js,jsx}\"",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

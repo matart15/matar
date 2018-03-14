@@ -3,6 +3,7 @@
   "scripts": {
 		"stop": "docker stop $(docker ps -q)",
     "start": "yarn prisma deploy; node src/index.js",
+    "fix": "eslint --fix \"src/**/*.{js,jsx}\"",
     "playground": "prisma playground",
     "dev": "npm-run-all --parallel start playground",
     "prisma": "prisma"
