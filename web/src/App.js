@@ -1,73 +1,99 @@
+// @flow
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {
-  NavLink,
-  Link,
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { MuiThemeProvider, withStyles } from 'material-ui/styles'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import FeedPage from './containers/FeedPage'
-import DraftsPage from './containers/DraftsPage'
-import CreatePage from './containers/CreatePage'
-import DetailPage from './containers/DetailPage'
+import AppRouter from './router'
+import AppDrawer from './components/drawer/'
 
 import './index.css'
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
-
 const client = new ApolloClient({
-  link: httpLink,
+  link: new HttpLink({ uri: 'http://localhost:4000' }),
   cache: new InMemoryCache()
 })
 
-export default () => (
+const drawerWidth = 240
+
+const styles = (theme: Object) => ({
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex'
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36
+  },
+  hide: {
+    display: 'none'
+  },
+  drawerPaper: {
+    position: 'relative',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9
+    }
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3
+  }
+})
+
+const App = ({ classes, theme }: { classes: Object, theme: Object }) => (
   <ApolloProvider client={client}>
     <Router>
-      <React.Fragment>
-        <nav className="pa3 pa4-ns">
-          <Link
-            className="link dim black b f6 f5-ns dib mr3"
-            to="/"
-            title="Feed">
-            Blog
-          </Link>
-          <NavLink
-            className="link dim f6 f5-ns dib mr3 black"
-            activeClassName="gray"
-            exact
-            to="/"
-            title="Feed">
-            Feed
-          </NavLink>
-          <NavLink
-            className="link dim f6 f5-ns dib mr3 black"
-            activeClassName="gray"
-            exact
-            to="/drafts"
-            title="Drafts">
-            Drafts
-          </NavLink>
-          <Link
-            to="/create"
-            className="f6 link dim br1 ba ph3 pv2 fr mb2 dib black">
-            + Create Draft
-          </Link>
-        </nav>
-        <div className="fl w-100 pl4 pr4">
-          <Switch>
-            <Route exact path="/" component={FeedPage} />
-            <Route path="/drafts" component={DraftsPage} />
-            <Route path="/create" component={CreatePage} />
-            <Route path="/post/:id" component={DetailPage} />
-          </Switch>
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <AppDrawer theme={theme} classes={classes}>
+            <AppRouter />
+          </AppDrawer>
         </div>
-      </React.Fragment>
+      </MuiThemeProvider>
     </Router>
   </ApolloProvider>
 )
+
+export default withStyles(styles, { withTheme: true })(App)

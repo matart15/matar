@@ -45,7 +45,7 @@ module.exports = {
     ],
     "flowtype/no-primitive-constructor-types": 2,
     "flowtype/no-types-missing-file-annotation": 2,
-    "flowtype/no-weak-types": 2,
+    "flowtype/no-weak-types": 0,
     "flowtype/object-type-delimiter": [
       2,
       "comma"
@@ -72,7 +72,6 @@ module.exports = {
     "flowtype/valid-syntax": 1,
     "react/no-string-refs": 0,
     "react/jsx-no-bind": 0,
-    "react-native/no-unused-styles": 1,
     "import/no-unresolved": 0,
     "react/jsx-filename-extension": 0,
     "no-console": 0,

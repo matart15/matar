@@ -13,7 +13,7 @@ class FeedPage extends React.Component {
   render() {
     if (this.props.feedQuery.loading) {
       return (
-        <div className="flex w-100 h-100 items-center justify-center pt7">
+        <div>
           <div>Loading (from {process.env.REACT_APP_GRAPHQL_ENDPOINT})</div>
         </div>
       )
